@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Mastery Roadmap — 100x Productivity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --bg2: #111318;
+    --bg3: #181b21;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.15);
+    --text: #e8e9ec;
+    --muted: #6b7280;
+    --accent: #22c55e;
+    --accent-dim: rgba(34,197,94,0.12);
+    --accent-glow: rgba(34,197,94,0.25);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── GRID LINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 80px 0 60px;
+    position: relative;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(34,197,94,0.25);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .header-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:0.5;transform:scale(0.8)}
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    font-family: var(--sans);
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 560px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 40px 0 56px;
+    padding: 24px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stats-bar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .stat {
+    text-align: center;
+    padding: 4px;
+  }
+
+  .stat-val {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-val.green { color: var(--accent); }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--mono);
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    margin-bottom: 56px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .progress-pct {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  .progress-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #4ade80);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .phase:hover { border-color: var(--border-hover); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg2);
+    transition: background 0.15s;
+  }
+
+  .phase-header:hover { background: var(--bg3); }
+
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .phase-info { flex: 1; }
+
+  .phase-title {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 3px;
+  }
+
+  .phase-sub {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .phase-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .phase-count {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    background: rgba(255,255,255,0.05);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .phase-toggle {
+    font-size: 10px;
+    color: var(--muted);
+    width: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .phase.open .phase-toggle { transform: rotate(180deg); }
+
+  /* ── SKILLS GRID ── */
+  .skills-body {
+    display: none;
+    padding: 0 16px 16px;
+    background: var(--bg);
+  }
+
+  .phase.open .skills-body { display: block; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    padding-top: 16px;
+  }
+
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .skill-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg3);
+    transform: translateY(-1px);
+  }
+
+  .skill-card:hover::before { opacity: 1; }
+  .skill-card.active { border-color: rgba(255,255,255,0.25); }
+  .skill-card.active::before { opacity: 1; }
+
+  .skill-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .skill-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .check-btn {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    color: transparent;
+    font-size: 10px;
+  }
+
+  .check-btn:hover { border-color: var(--accent); }
+  .check-btn.done {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .skill-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+    letter-spacing: -0.01em;
+  }
+
+  .skill-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── DETAIL PANEL ── */
+  .detail-panel {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 10px;
+  }
+
+  .detail-panel.open { display: block; animation: slideDown 0.15s ease; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .detail-title::before {
+    content: '//';
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .detail-tips {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .detail-tips li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .detail-tips li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(34,197,94,0.25);
+    padding: 7px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .action-link:hover {
+    background: rgba(34,197,94,0.2);
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 80px;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .skills-grid { grid-template-columns: 1fr; }
+    .phase-meta { display: none; }
+    h1 { font-size: 28px; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="header-badge">Claude Mastery Roadmap</div>
+    <h1>Master Claude.<br><span>Go 100x.</span></h1>
+    <p class="header-sub">Every skill, surface, and power move — from interfaces to agents. Click any skill to unlock the tactics. Check off as you master them.</p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-val green" id="s-done">0</div>
+      <div class="stat-lbl">Skills done</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val" id="s-total">0</div>
+      <div class="stat-lbl">Total skills</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val green" id="s-pct">0%</div>
+      <div class="stat-lbl">Complete</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val" id="s-phase" style="font-size:16px">Phase 1</div>
+      <div class="stat-lbl">Current</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <span class="progress-label">Overall progress</span>
+      <span class="progress-pct" id="prog-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog-fill"></div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div id="phases"></div>
+
+  <footer>
+    <span class="footer-text">Built for Faheem · Enigmax Labs · 2026</span>
+    <span class="footer-badge">// THE AI STACK</span>
+  </footer>
+
+</div>
+
+<script>
+const phases = [
+  {
+    label:"01", title:"Claude interfaces & setup",
+    sub:"Master every surface you can talk to Claude from",
+    color:"#3b82f6", bg:"rgba(59,130,246,0.15)", accent:"#60a5fa",
+    skills:[
+      {icon:"💬", name:"Claude.ai chat", desc:"Core conversational interface",
+        tips:["Use Projects to keep context persistent across conversations","Create a Project per domain: Enigmax, research, code, writing","Pin key documents and instructions inside each Project","Use the memory system — tell Claude what to remember"],
+        prompt:"Show me how to set up Claude Projects for maximum productivity"},
+      {icon:"⌨️", name:"Claude Code", desc:"Agentic coding in the terminal",
+        tips:["Install globally: npm install -g @anthropic-ai/claude-code","Use /init to let Claude map your entire repo before asking anything","CLAUDE.md files are your persistent instructions — craft them carefully","Trust it to run tests, edit files, search the codebase end-to-end"],
+        prompt:"Teach me Claude Code's most powerful workflows for building Enigmax"},
+      {icon:"🖥️", name:"Claude Cowork", desc:"Desktop automation for non-coders",
+        tips:["Automates file management, app workflows, and repetitive tasks","Great for batch renaming, moving files, generating reports","Use alongside Claude Code for full-stack automation","Chain with shell scripts for powerful pipeline automation"],
+        prompt:"What tasks can Claude Cowork automate for my daily workflow?"},
+      {icon:"🌐", name:"Claude in Chrome", desc:"Browsing agent extension",
+        tips:["Reads and interacts with any webpage you have open","Useful for scraping, summarizing, filling forms, research","Combine with web search for real-time competitive intelligence","Works inside Gmail, Notion, Google Docs, LinkedIn"],
+        prompt:"How can I use Claude in Chrome for AI research and competitor analysis?"},
+      {icon:"📊", name:"Claude for Excel", desc:"Spreadsheet intelligence",
+        tips:["Generate formulas, clean data, build pivot tables via natural language","Upload CSVs and ask Claude to analyze and transform data","Automate recurring report generation pipelines","Build financial models by describing what you need"],
+        prompt:"Show me Claude for Excel workflows for business analysis"},
+      {icon:"📑", name:"Claude for PowerPoint", desc:"Slide generation agent",
+        tips:["Generate entire decks from a brief or a document","Redesign existing presentations with a prompt","Create pitch decks, investor presentations, technical slides","Combine with research output for evidence-backed decks"],
+        prompt:"How do I use Claude to build an Enigmax investor pitch deck?"},
+    ]
+  },
+  {
+    label:"02", title:"Prompt engineering mastery",
+    sub:"The single highest-leverage skill — better inputs, better everything",
+    color:"#22c55e", bg:"rgba(34,197,94,0.12)", accent:"#4ade80",
+    skills:[
+      {icon:"🧠", name:"Prompt fundamentals", desc:"Structure, clarity, context, constraints",
+        tips:["Give Claude a role + task + format + constraints in every system prompt","Use positive instructions ('do X') not negative ('don't do Y')","Include 2–3 good examples for complex tasks — few-shot > zero-shot","Always specify output format explicitly: JSON, markdown, bullets, prose"],
+        prompt:"Teach me the most important prompt engineering patterns with examples"},
+      {icon:"🔗", name:"Chain-of-thought", desc:"Make Claude reason before answering",
+        tips:["Add 'Think step by step' or 'Reason through this carefully' before hard tasks","Use <thinking> tags to separate reasoning from final answer","For multi-step problems, break into subtasks with separate prompts","Ask Claude to critique its own answer before finalizing"],
+        prompt:"Show me chain-of-thought prompting patterns that work best with Claude"},
+      {icon:"🏷️", name:"XML structuring", desc:"Use tags for complex prompts",
+        tips:["Wrap different prompt sections in XML tags: <context>, <task>, <format>","Use <example> tags to separate few-shot examples cleanly","Tags reduce ambiguity — Claude parses structured prompts better","Request XML output for programmatic parsing downstream"],
+        prompt:"How do I use XML tags to structure complex prompts for Claude?"},
+      {icon:"⚙️", name:"System prompt design", desc:"Build reusable AI behaviors",
+        tips:["System prompts define Claude's persona, scope, and rules persistently","Write a system prompt for every recurring use case you have","Include persona, task scope, tone, forbidden behaviors, output format","Test system prompts against edge cases before deploying"],
+        prompt:"Help me design a system prompt for my Enigmax AI product"},
+      {icon:"🔄", name:"Iterative refinement", desc:"Debug and improve outputs",
+        tips:["Never accept first output as final — always iterate at least once","Use 'What's wrong with this?' to get Claude to self-critique","Ask for multiple variations and pick or merge the best elements","Track what prompt patterns work in a personal prompt library"],
+        prompt:"Teach me how to debug and iterate on prompts systematically"},
+    ]
+  },
+  {
+    label:"03", title:"Claude API & developer skills",
+    sub:"Build real AI-powered products — the Enigmax engineering foundation",
+    color:"#a855f7", bg:"rgba(168,85,247,0.12)", accent:"#c084fc",
+    skills:[
+      {icon:"🔌", name:"Messages API", desc:"Core API — sync & streaming",
+        tips:["Use claude-sonnet-4-20250514 as your go-to model","Always stream responses for user-facing applications","Set max_tokens deliberately — don't leave at default","Use the SDK: pip install anthropic / npm install @anthropic-ai/sdk"],
+        prompt:"Walk me through Claude API basics for building Enigmax"},
+      {icon:"🛠️", name:"Tool use / function calling", desc:"Let Claude call your code",
+        tips:["Define tools as JSON schema — Claude decides when to call them","Build a tool library: search_web, run_code, query_db, call_api","Use parallel tool calls for tasks that can run simultaneously","Always handle tool errors gracefully — Claude will retry if you tell it to"],
+        prompt:"Show me how to implement tool use with Claude for an AI agent"},
+      {icon:"🧩", name:"Context & memory", desc:"Manage long conversations",
+        tips:["Claude has no memory by default — you must inject context every call","Use a sliding window: keep last N messages + always include system prompt","Store important facts in a vector DB and retrieve them per turn","For long docs, use extended thinking or break into chunks with summarization"],
+        prompt:"How do I build persistent memory into a Claude-powered app?"},
+      {icon:"📐", name:"Evals & testing", desc:"Measure and improve AI quality",
+        tips:["Build an eval harness before you build features — this is your north star","Use LLM-as-judge: ask Claude to grade Claude's outputs with a rubric","Track key metrics: accuracy, hallucination rate, latency, cost per task","Use PromptFoo or RAGAS for structured eval pipelines"],
+        prompt:"How do I set up an eval system for Enigmax AI features?"},
+      {icon:"📚", name:"RAG implementation", desc:"Ground Claude in your data",
+        tips:["Embed your docs → store in vector DB (Pinecone, Weaviate, pgvector)","Retrieve top-k chunks at query time → inject into system prompt","Use hybrid search: vector + BM25 keyword for better recall","Rerank retrieved chunks before injecting — improves quality significantly"],
+        prompt:"Walk me through building a RAG pipeline with Claude for HiggsField"},
+      {icon:"⚡", name:"Batch & async processing", desc:"Scale to production workloads",
+        tips:["Use the Batch API for high-volume tasks (50% cheaper)","Process thousands of documents, classifications, or extractions overnight","Combine with queues (SQS, Redis) for robust async pipelines","Monitor batch jobs with status polling — design for partial failures"],
+        prompt:"How do I use Claude's Batch API for large-scale data processing?"},
+    ]
+  },
+  {
+    label:"04", title:"Agentic AI & orchestration",
+    sub:"Build Claude agents that work autonomously — NexAgent territory",
+    color:"#f59e0b", bg:"rgba(245,158,11,0.12)", accent:"#fbbf24",
+    skills:[
+      {icon:"🤖", name:"Agent architecture", desc:"Design reliable AI agents",
+        tips:["Plan → Execute → Observe → Reflect is the core agentic loop","Give agents clear stopping conditions — open-ended loops are dangerous","Use subagents for parallelizable subtasks","Build a human-in-the-loop checkpoint for irreversible actions"],
+        prompt:"Teach me how to architect a reliable Claude agent from scratch"},
+      {icon:"🔧", name:"MCP servers", desc:"Connect Claude to any system",
+        tips:["MCP lets Claude use tools from any server over a standard protocol","Build MCP servers for your own APIs to make them Claude-native","Available MCP servers: Google Drive, Gmail, Calendar, GitHub, Slack, Notion","For Enigmax: build a custom MCP server per vertical for deep integration"],
+        prompt:"How do I build a custom MCP server to connect Claude to Enigmax?"},
+      {icon:"🌐", name:"Multi-agent orchestration", desc:"Coordinate multiple AI agents",
+        tips:["Use an orchestrator Claude to delegate subtasks to worker Claudes","Orchestrator sees the big picture; workers are specialized and focused","Pass outputs between agents via structured formats (JSON)","Build retry and fallback logic — agent pipelines fail at every seam"],
+        prompt:"How do I design a multi-agent system using Claude for NexAgent?"},
+      {icon:"🛡️", name:"Agent safety", desc:"Make agents production-safe",
+        tips:["Minimal footprint principle: request only permissions needed","Log all agent actions for audit — you need a replay trail","Set hard limits: max steps, max cost, max wall time per run","Test agents with adversarial inputs before giving them real access"],
+        prompt:"What safety patterns should I build into every Claude agent?"},
+    ]
+  },
+  {
+    label:"05", title:"Research & writing at scale",
+    sub:"10x your output quality and speed for content and deep research",
+    color:"#ec4899", bg:"rgba(236,72,153,0.12)", accent:"#f472b6",
+    skills:[
+      {icon:"🔍", name:"Deep research workflows", desc:"Use Claude's research feature",
+        tips:["Claude's Research feature runs multi-step web searches autonomously","Use it for competitive analysis, market research, literature reviews","Give it a specific research question — vague queries give vague results","Combine with PDF upload for document-grounded research"],
+        prompt:"Show me how to use Claude for deep research on the AI agent market"},
+      {icon:"✍️", name:"Long-form writing", desc:"Draft, edit, and publish at scale",
+        tips:["Use Projects to maintain consistent voice across all documents","Give Claude your writing examples before asking it to write for you","Break long pieces into section-by-section generation for quality control","Use Claude to rewrite, not just write — your draft + Claude edits = gold"],
+        prompt:"How do I set up a Claude workflow for The AI Stack content production?"},
+      {icon:"📄", name:"Document analysis", desc:"Extract insight from any document",
+        tips:["Upload PDFs, images, code files, CSVs — Claude handles all of them","Ask Claude to summarize, extract key claims, find contradictions","Use 'quote the relevant section before answering' to prevent hallucination","Chain: summarize → extract → synthesize across multiple documents"],
+        prompt:"Teach me advanced document analysis workflows with Claude"},
+      {icon:"📈", name:"Data analysis", desc:"Turn data into insight fast",
+        tips:["Upload CSVs and ask Claude to analyze, find patterns, suggest charts","Claude can write Python/R analysis code you can run immediately","Use code execution in Claude.ai for in-chat data analysis","Ask Claude to explain its findings in plain language for stakeholders"],
+        prompt:"How do I use Claude for rapid data analysis on Enigmax metrics?"},
+    ]
+  },
+  {
+    label:"06", title:"Advanced & power-user skills",
+    sub:"The 1% moves that create unfair advantages",
+    color:"#ef4444", bg:"rgba(239,68,68,0.12)", accent:"#f87171",
+    skills:[
+      {icon:"🧬", name:"Extended thinking", desc:"Claude's deep reasoning mode",
+        tips:["Enable extended thinking for hard math, logic, planning, and code review","Claude reasons internally before responding — outputs are significantly better","Use for architecture decisions, debugging complex bugs, research synthesis","Costs more tokens but worth it for high-stakes decisions"],
+        prompt:"When and how should I use Claude's extended thinking mode?"},
+      {icon:"👁️", name:"Vision & multimodal", desc:"Images, diagrams, screenshots, PDFs",
+        tips:["Upload UI screenshots for Claude to review, redesign, or code from","Use diagrams and whiteboards as input — Claude reads them accurately","Ask Claude to extract text from images (OCR replacement)","Combine vision + code: screenshot → working UI component"],
+        prompt:"Show me the most powerful multimodal workflows with Claude"},
+      {icon:"🎯", name:"AI-powered Artifacts", desc:"Build live mini-apps with the API",
+        tips:["Claude can call the Anthropic API inside Artifacts — AI inside AI","Build tools that generate content, analyze input, or power workflows","Artifacts persist and can be shared — great for team tools","Build an Enigmax prototype directly in Artifacts to validate ideas quickly"],
+        prompt:"How do I build an AI-powered artifact using the Claude API inside Claude?"},
+      {icon:"📦", name:"Prompt version control", desc:"Manage prompts like code",
+        tips:["Store prompts in a Git repo with changelogs — treat them as code","Use LangSmith or PromptLayer for prompt versioning in production","A/B test prompt versions using your eval harness before shipping","Document why prompts changed — future you will thank current you"],
+        prompt:"How should I version control and manage prompts for Enigmax?"},
+      {icon:"💰", name:"Cost & latency optimization", desc:"Run AI at scale efficiently",
+        tips:["Prompt caching reduces cost by up to 90% for repeated context — always use it","Haiku 4.5 for fast/cheap classification; Sonnet 4 for complex reasoning","Use streaming to improve perceived latency in user-facing features","Profile your prompts: which steps cost the most? Optimize those first"],
+        prompt:"Teach me how to optimize Claude API costs for a production AI product"},
+    ]
+  }
+];
+
+let done = new Set();
+let expanded = new Set([0]);
+let activeCard = null;
+
+function totalSkills() {
+  return phases.reduce((a,p) => a + p.skills.length, 0);
+}
+
+function updateStats() {
+  const total = totalSkills();
+  const d = done.size;
+  const pct = total ? Math.round(d/total*100) : 0;
+  document.getElementById('s-done').textContent = d;
+  document.getElementById('s-total').textContent = total;
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  let cur = '✓ Done';
+  for(let pi=0; pi<phases.length; pi++){
+    const p = phases[pi];
+    const allDone = p.skills.every((_,si) => done.has(`${pi}-${si}`));
+    if(!allDone){ cur = 'Phase ' + (pi+1); break; }
+  }
+  document.getElementById('s-phase').textContent = cur;
+}
+
+function buildPromptUrl(prompt) {
+  return `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
+}
+
+function render() {
+  const container = document.getElementById('phases');
+  container.innerHTML = '';
+
+  phases.forEach((phase, pi) => {
+    const isOpen = expanded.has(pi);
+    const doneCount = phase.skills.filter((_,si) => done.has(`${pi}-${si}`)).length;
+
+    const phaseEl = document.createElement('div');
+    phaseEl.className = 'phase' + (isOpen ? ' open' : '');
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'phase-header';
+    header.innerHTML = `
+      <div class="phase-num" style="background:${phase.bg};color:${phase.accent}">
+        ${phase.label}
+      </div>
+      <div class="phase-info">
+        <div class="phase-title" style="color:${phase.accent}">${phase.title}</div>
+        <div class="phase-sub">${phase.sub}</div>
+      </div>
+      <div class="phase-meta">
+        <div class="phase-count">${doneCount}/${phase.skills.length}</div>
+        <div class="phase-toggle">▼</div>
+      </div>
+    `;
+    header.addEventListener('click', () => {
+      if(expanded.has(pi)) expanded.delete(pi);
+      else expanded.add(pi);
+      render(); updateStats();
+    });
+    phaseEl.appendChild(header);
+
+    // Skills body
+    const body = document.createElement('div');
+    body.className = 'skills-body';
+
+    const grid = document.createElement('div');
+    grid.className = 'skills-grid';
+
+    let detailPanel = null;
+    let detailAfterIdx = -1;
+
+    phase.skills.forEach((skill, si) => {
+      const cardKey = `${pi}-${si}`;
+      const isDone = done.has(cardKey);
+      const isActive = activeCard === cardKey;
+
+      const card = document.createElement('div');
+      card.className = 'skill-card' + (isActive ? ' active' : '');
+      card.style.setProperty('--card-accent', phase.color);
+      card.style.cssText += `--card-accent:${phase.color}`;
+
+      // accent top border
+      card.style.position = 'relative';
+
+      const topBar = document.createElement('div');
+      topBar.style.cssText = `position:absolute;top:0;left:0;right:0;height:2px;background:${phase.color};opacity:${isActive?1:0};transition:opacity 0.2s;border-radius:10px 10px 0 0`;
+      card.appendChild(topBar);
+
+      card.innerHTML += `
+        <div class="skill-top">
+          <div class="skill-icon">${skill.icon}</div>
+          <button class="check-btn${isDone?' done':''}" title="Mark as done">
+            ${isDone ? '✓' : ''}
+          </button>
+        </div>
+        <div class="skill-name">${skill.name}</div>
+        <div class="skill-desc">${skill.desc}</div>
+      `;
+
+      card.querySelector('.check-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if(done.has(cardKey)) done.delete(cardKey);
+        else done.add(cardKey);
+        render(); updateStats();
+      });
+
+      card.addEventListener('click', () => {
+        if(activeCard === cardKey) activeCard = null;
+        else activeCard = cardKey;
+        render(); updateStats();
+      });
+
+      grid.appendChild(card);
+
+      if(isActive) detailAfterIdx = si;
+    });
+
+    body.appendChild(grid);
+
+    // Detail panel
+    if(activeCard && activeCard.startsWith(`${pi}-`) && detailAfterIdx >= 0) {
+      const si = detailAfterIdx;
+      const skill = phase.skills[si];
+      const panel = document.createElement('div');
+      panel.className = 'detail-panel open';
+      panel.innerHTML = `
+        <div class="detail-title" style="color:${phase.accent}">${skill.name}</div>
+        <ul class="detail-tips">
+          ${skill.tips.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+        <a class="action-link" href="${buildPromptUrl(skill.prompt)}" target="_blank">
+          → Open in Claude ↗
+        </a>
+      `;
+      body.appendChild(panel);
+    }
+
+    phaseEl.appendChild(body);
+    container.appendChild(phaseEl);
+  });
+
+  updateStats();
+}
+
+render();
+</script>
+</body>
+</html>
