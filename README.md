@@ -1,4 +1,3 @@
-Here's your complete Claude mastery roadmap — fully interactive. Click any skill card to expand it with exact tips, then hit "Ask Claude about this ↗" to dive deep immediately. Check off skills as you complete them and watch your progress bar fill.
 
 **The six phases in sequence:**
 
