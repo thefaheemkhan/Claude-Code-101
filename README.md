@@ -13,4 +13,3 @@
 
 **Phase 6 — Power-user skills.** Extended thinking, multimodal inputs, AI-powered Artifacts, prompt version control, and cost optimization. These are the 1% moves.
 
-Start with Phase 1 and 2 in parallel — they have the fastest payoff and build the mental models you'll need for everything else.
