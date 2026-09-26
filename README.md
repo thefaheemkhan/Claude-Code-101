@@ -12,7 +12,7 @@
   
 ---  b 
      
-## 📖 Table of Contents 
+## 📖 Table of Contents  
 
 - [Why This Roadmap](#-why-this-roadmap)
 - [Claude Ecosystem Overview](#-claude-ecosystem-overview)
