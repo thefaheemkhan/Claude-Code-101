@@ -13,7 +13,7 @@
 ---  b  
      
 ## 📖 Table of Contents  
-
+ 
 - [Why This Roadmap](#-why-this-roadmap)
 - [Claude Ecosystem Overview](#-claude-ecosystem-overview)
 - [Phase 0 — Foundations](#-phase-0--foundations-week-1)
