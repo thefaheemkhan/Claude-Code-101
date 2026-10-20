@@ -1,1 +1,1 @@
-# Claude Code 101
+# Claude Code
